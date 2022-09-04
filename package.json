@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "start": "run-s start:build start:start",
+    "start:build": "next build",
+    "start:start": "next start",
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "next lint --no-cache",
     "lint:prettier": "prettier --write './**/*.{js,ts,tsx,json,md,css}'",
