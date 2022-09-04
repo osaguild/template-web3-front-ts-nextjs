@@ -1,4 +1,4 @@
 .husky
-.storybook
+.next
 node_modules
 public
