@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "next lint --no-cache",
-    "lint:prettier": "prettier --write './**/*.{js,ts,tsx,json,md}'",
+    "lint:prettier": "prettier --write './**/*.{js,ts,tsx,json,md,css}'",
     "test": "jest",
     "prepare": "husky install"
   },
