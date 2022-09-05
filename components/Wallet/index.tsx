@@ -1,28 +1,27 @@
 import { FunctionComponent } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
+import { Button } from '@chakra-ui/react'
 import { useEagerConnect } from '../../hooks/useEagerConnect'
 import { useInactiveListener } from '../../hooks/useInactiveListener'
+import { useAlertContext } from '../../hooks/useAlertContext'
 import { injected } from '../../lib/connectors'
 
 const Wallet: FunctionComponent = () => {
-  const { activate, chainId, account } = useWeb3React<Web3Provider>()
+  const { activate } = useWeb3React<Web3Provider>()
+  const { setAlert } = useAlertContext()
   // after EagerConnect inactivate Listener
   useInactiveListener(useEagerConnect())
 
   const connect = () => {
-    activate(injected, (error) => {
-      console.log(error)
+    activate(injected, (e) => {
+      // if connect wallet is failed, show alert.
+      if (setAlert) setAlert({ message: e.message, status: 'error' })
+      else throw e
     })
   }
 
-  return (
-    <div>
-      <p>{chainId}</p>
-      <p>{account}</p>
-      <button onClick={connect}>connect</button>
-    </div>
-  )
+  return <Button onClick={connect}>connect</Button>
 }
 
 export { Wallet }
