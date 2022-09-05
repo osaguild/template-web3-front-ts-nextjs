@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
-    dirs: ['components', 'config', 'const', 'hooks', 'lib', 'pages', 'styles', 'types', 'utils'],
+    dirs: ['components', 'config', 'hooks', 'lib', 'pages', 'styles', 'types', 'utils'],
   },
 }
 

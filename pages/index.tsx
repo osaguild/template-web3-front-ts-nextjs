@@ -1,14 +1,14 @@
 import { FunctionComponent } from 'react'
+import { providers } from 'ethers'
 import { Web3ReactProvider } from '@web3-react/core'
-import { ExternalProvider, JsonRpcFetchFunc, Web3Provider } from '@ethersproject/providers'
+import { ChakraProvider } from '@chakra-ui/react'
 import { Wallet } from '../components/Wallet'
 import { Alert } from '../components/Alert'
 import { AlertContext, useAlertProvider } from '../hooks/useAlertContext'
-import { ChakraProvider } from '@chakra-ui/react'
 
 const Top: FunctionComponent = () => {
-  const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
-    const library = new Web3Provider(provider)
+  const getLibrary = (provider: providers.ExternalProvider | providers.JsonRpcFetchFunc) => {
+    const library = new providers.Web3Provider(provider)
     library.pollingInterval = 12000
     return library
   }

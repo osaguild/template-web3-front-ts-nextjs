@@ -1,18 +1,17 @@
 import { FunctionComponent, useState, useEffect } from 'react'
+import { providers } from 'ethers'
 import { useWeb3React } from '@web3-react/core'
-import { Web3Provider } from '@ethersproject/providers'
-import { formatEther } from '@ethersproject/units'
 import { Button } from '@chakra-ui/react'
+import { Network } from './Network'
 import { useEagerConnect } from '../../hooks/useEagerConnect'
 import { useInactiveListener } from '../../hooks/useInactiveListener'
 import { useAlertContext } from '../../hooks/useAlertContext'
 import { injected } from '../../lib/connectors'
-import { shortAddress } from '../../utils'
-import { Network } from './Network'
+import { convertToShortAddress, convertToShortEth } from '../../utils'
 
 const Wallet: FunctionComponent = () => {
-  const [balance, setBalance] = useState<string>('?')
-  const { active, account, chainId, library, activate } = useWeb3React<Web3Provider>()
+  const [balance, setBalance] = useState<string>('? ETH')
+  const { active, account, chainId, library, activate } = useWeb3React<providers.Web3Provider>()
   const { setAlert } = useAlertContext()
   // after EagerConnect inactivate Listener
   useInactiveListener(useEagerConnect())
@@ -29,7 +28,7 @@ const Wallet: FunctionComponent = () => {
     if (account && library)
       library
         .getBalance(account)
-        .then((balance) => setBalance(formatEther(balance).slice(0, 5)))
+        .then((balance) => setBalance(`${convertToShortEth(balance)} ETH`))
         .catch((e) => {
           setBalance('?')
           if (setAlert) setAlert({ message: e.message, status: 'error' })
@@ -44,7 +43,7 @@ const Wallet: FunctionComponent = () => {
         {balance}
       </Button>
       <Button w={160} disabled>
-        {shortAddress(account as string)}
+        {convertToShortAddress(account as string)}
       </Button>
     </div>
   ) : (

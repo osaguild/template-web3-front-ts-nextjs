@@ -1,21 +1,14 @@
 import { FunctionComponent, useState, useEffect } from 'react'
+import { providers } from 'ethers'
 import { useWeb3React } from '@web3-react/core'
-import { Web3Provider } from '@ethersproject/providers'
 import { Menu, MenuButton, MenuList, MenuItem, Image, Button, Box, Text } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { networks } from '../../const'
+import { networks } from '../../config/network'
+import { switchNetwork } from '../../lib/metamask'
 
 const Network: FunctionComponent = () => {
-  const { chainId } = useWeb3React<Web3Provider>()
+  const { chainId } = useWeb3React<providers.Web3Provider>()
   const [currentNetwork, setCurrentNetwork] = useState<Network | undefined>()
-
-  const changeNetwork = async (_chainId: number) => {
-    const { ethereum } = window
-    await ethereum.request({
-      method: 'wallet_switchEthereumChain',
-      params: [{ chainId: `0x${_chainId.toString(16)}` }],
-    })
-  }
 
   useEffect(() => {
     if (chainId) setCurrentNetwork(networks.filter((network) => network.chainId === chainId)[0])
@@ -33,12 +26,12 @@ const Network: FunctionComponent = () => {
             </Text>
           </Box>
         ) : (
-          <Box>Select Network</Box>
+          <Box>network</Box>
         )}
       </MenuButton>
       <MenuList w={10}>
         {networks.map((network) => (
-          <MenuItem key={network.chainId} onClick={() => changeNetwork(network.chainId)}>
+          <MenuItem key={network.chainId} onClick={() => switchNetwork(network.chainId)}>
             <Image boxSize="1.5rem" borderRadius="full" src={network.icon} alt="chain logo" ml={0.5} mr={3} />
             <span>{network.name}</span>
           </MenuItem>
