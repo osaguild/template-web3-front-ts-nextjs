@@ -1,10 +1,6 @@
 import { InjectedConnector } from '@web3-react/injected-connector'
+import { networks } from '../const'
 
-const chainId = {
-  mainnet: 1,
-  goerli: 5,
-}
+const injected = new InjectedConnector({ supportedChainIds: networks.map((network) => network.chainId) })
 
-const injected = new InjectedConnector({ supportedChainIds: [chainId.mainnet, chainId.goerli] })
-
-export { injected, chainId }
+export { injected }
