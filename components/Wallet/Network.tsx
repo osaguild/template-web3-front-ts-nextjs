@@ -1,7 +1,7 @@
 import { FunctionComponent, useState, useEffect } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
-import { Menu, MenuButton, MenuList, MenuItem, Image, Button, Box } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, MenuItem, Image, Button, Box, Text } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { networks } from '../../const'
 
@@ -24,13 +24,13 @@ const Network: FunctionComponent = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w={192}>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w={160}>
         {currentNetwork ? (
           <Box>
             <Image boxSize="1.5rem" borderRadius="full" src={currentNetwork.icon} alt="chain logo" />
-            <Box mt={-5} ml={2}>
+            <Text textAlign="left" mt={-5} ml={9}>
               {currentNetwork.name}
-            </Box>
+            </Text>
           </Box>
         ) : (
           <Box>Select Network</Box>

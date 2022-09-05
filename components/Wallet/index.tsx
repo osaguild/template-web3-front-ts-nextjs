@@ -40,13 +40,19 @@ const Wallet: FunctionComponent = () => {
   return active ? (
     <div>
       <Network />
-      <Button disabled>{balance}</Button>
-      <Button disabled>{shortAddress(account as string)}</Button>
+      <Button w={160} disabled>
+        {balance}
+      </Button>
+      <Button w={160} disabled>
+        {shortAddress(account as string)}
+      </Button>
     </div>
   ) : (
     <div>
       <Network />
-      <Button onClick={connect}>connect</Button>
+      <Button w={160} onClick={connect}>
+        connect
+      </Button>
     </div>
   )
 }
