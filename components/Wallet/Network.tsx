@@ -1,27 +1,54 @@
-import { FunctionComponent } from 'react'
-import { Menu, MenuButton, MenuList, MenuItem, Image, Button } from '@chakra-ui/react'
+import { FunctionComponent, useState, useEffect } from 'react'
+import { Menu, MenuButton, MenuList, MenuItem, Image, Button, Box } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import { useWeb3React } from '@web3-react/core'
+import { Web3Provider } from '@ethersproject/providers'
 
-type network = {
+type Network = {
   chainId: number
   name: string
   icon: string
 }
-const networks: network[] = [
+const networks: Network[] = [
   { chainId: 1, name: 'Mainnet', icon: '/assets/eth-diamond-black-white.jpeg' },
   { chainId: 5, name: 'Goerli', icon: '/assets/eth-diamond-black-white.jpeg' },
 ]
 
 const Network: FunctionComponent = () => {
+  const { chainId } = useWeb3React<Web3Provider>()
+  const [currentNetwork, setCurrentNetwork] = useState<Network | undefined>()
+
+  const changeNetwork = async (_chainId: number) => {
+    const { ethereum } = window
+    await ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: `0x${_chainId.toString(16)}` }],
+    })
+  }
+
+  useEffect(() => {
+    if (chainId) setCurrentNetwork(networks.filter((network) => network.chainId === chainId)[0])
+    else setCurrentNetwork(undefined)
+  }, [chainId])
+
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-        Mainnet
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w={192}>
+        {currentNetwork ? (
+          <Box>
+            <Image boxSize="1.5rem" borderRadius="full" src={currentNetwork.icon} alt="chain logo" />
+            <Box mt={-5} ml={2}>
+              {currentNetwork.name}
+            </Box>
+          </Box>
+        ) : (
+          <Box>Select Network</Box>
+        )}
       </MenuButton>
-      <MenuList>
+      <MenuList w={10}>
         {networks.map((network) => (
-          <MenuItem key={network.chainId}>
-            <Image boxSize="2rem" borderRadius="full" src={network.icon} alt="chain logo" mr="12px" />
+          <MenuItem key={network.chainId} onClick={() => changeNetwork(network.chainId)}>
+            <Image boxSize="1.5rem" borderRadius="full" src={network.icon} alt="chain logo" ml={0.5} mr={3} />
             <span>{network.name}</span>
           </MenuItem>
         ))}
