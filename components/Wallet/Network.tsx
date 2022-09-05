@@ -17,7 +17,7 @@ const Network: FunctionComponent = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w={160}>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} w={160} mx={1} my={2}>
         {currentNetwork ? (
           <Box>
             <Image boxSize="1.5rem" borderRadius="full" src={currentNetwork.icon} alt="chain logo" />
