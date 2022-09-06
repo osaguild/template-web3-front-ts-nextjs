@@ -14,14 +14,14 @@ body {
 
 .web3-title {
   background: linear-gradient(to right, #30cfd0, #c43ad6);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 900;
 }
 
 .web3-text {
   background: linear-gradient(to right, #30cfd0, #c43ad6);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
