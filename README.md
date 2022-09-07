@@ -9,6 +9,9 @@ template repository for web3 front-end using typescript, next.js and react.
 | typescript      | dev          | for typescript, not javascript          |
 | react           | dev          | for react, not vue angular...           |
 | next.js         | dev          | framework                               |
+| web3-react      | dev          | library for wallet                      |
+| chakra-ui       | dev          | ui component for react                  |
+| ethers          | dev          | web3 library to interact with ethereum  |
 | story book      | test         | for test on browser. builder is webpack |
 | jest            | test         | for unit test                           |
 | testing-library | test         | for unit test of react                  |
@@ -19,10 +22,6 @@ template repository for web3 front-end using typescript, next.js and react.
 # how to use this template?
 
 - update `xxx` on package.json
-- check your test targets
-  - template has two jest config which are `jest.jsdom.config.js` and `jest.node.config.js`. if you need both config you don't need to fix anything. but you need only one, you should delete another config and fix `test` script command on package.json.
-    - `jest.jsdom.config.js` : for react component
-    - `jest.node.config.js` : for typescript library which run on node module
-- delete sample code on `./src`
-  - `./src/components/Button` : sample react component and test code.
-  - `./src/lib/script` : sample typescript library and test code.
+- this repository is mvp for web3 front-end including only wallet connect. you can start template project with `yarn start` or `yarn dev`.
+- codes of mvp are under the `./components` `./config` `./hooks` `./lib` `./pages` `./types` `./utils`. if you don't need it, delete it.
+- if you interact with ethereum, add abi and use it via ethers.js. I recommend to use typechain to generate typescript type from abi.

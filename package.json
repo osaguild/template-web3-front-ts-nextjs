@@ -1,7 +1,11 @@
 {
-  "name": "template-web3-front-ts-nextjs",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@osaguild/xxx",
+  "description": "xxx",
+  "author": {
+    "name": "osaguild",
+    "email": "osaguild@gmail.com"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "start": "run-s start:build start:start",
